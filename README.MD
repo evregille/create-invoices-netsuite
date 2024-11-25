@@ -7,17 +7,9 @@ You need:
 
 # Configure
 ## 1. set up Metronome and Netsuite
-1. Make sure that all your Metronome customers and products are properly mapped via custom_fields with Netsuite Customers and Netsuite Items.
+1. Make sure that all Metronome customers and products are properly mapped via custom_fields with Netsuite Customers and Netsuite Items.
 
-2. Authentication: you need a Metronome API Token as well as Netsuite OAuth1.0 consumer and tokens. In Netsuite, your need to follow the steps:
-1. Log in to your NetSuite account 
-2. Go to Setup > Integration > Manage Integrations > New 
-3. Under Authentication, select Token-based Authentication 
-4. Click Save - The consumer key and consumer secret will be generated and displayed 
-5. Go to Setup > Users/Roles > Access Tokens > New 
-6. Select the Application name 
-7. Select the User 
-8. Click Save - The Token ID and Token Secret will be generated and displayed 
+2. Authentication: you need a Metronome API Token as well as Netsuite OAuth1.0 consumer and tokens. 
 
 ## 2. set your secret keys
 Create in the root folder a `terraform.tfvars` with the following content:
