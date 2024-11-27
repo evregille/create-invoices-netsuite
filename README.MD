@@ -1,4 +1,4 @@
-# Create Metronome Invoices in Netsuite
+# Automatically create Metronome invoices in Netsuite
 You need:
 - an AWS account 
 - Terraform
