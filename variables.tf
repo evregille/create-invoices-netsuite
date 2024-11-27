@@ -49,6 +49,17 @@ variable "billing_provider_retries" {
     default = 1
     type = number
 }
+variable "ns_invoice_custom_form_id" {
+  default = "178"
+  type = string
+  description = "netsuite invoice custom form id"
+}
+
+variable "ns_invoice_custom_form_ref_name" {
+  default = "Z -HM Invoice Form"
+  type = string
+  description = "netsuite invoice custom form refName"
+}
 
 # NETSUITE CONFIGURATION
 variable "ns_account_id" {}
@@ -56,5 +67,3 @@ variable "ns_consumer_key" {}
 variable "ns_consumer_secret" {}
 variable "ns_token_id" {}
 variable "ns_token_secret" {}
-variable "ns_invoice_custom_form_id" {}
-variable "ns_invoice_custom_form_ref_name" {}

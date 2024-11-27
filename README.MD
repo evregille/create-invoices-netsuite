@@ -31,6 +31,7 @@ In the `variables.tf` files, you can update the default settings values:
 | metronome_billing_provider_item_id | Metronome custom field key name on Product for the Netsuite internal Item ID| "netsuite_internal_item_id"|
 | line_item_name_separator | In case of presentation/pricing grouping keys, it is the string used as a separator in the NS invoice line item description field | " / " |
 | billing_provider_retries | how many times the creation invoice request to retry in case of failure| 1 |
+| ns_invoice_custom_form_id & ns_invoice_custom_form_ref_name | reference name and id of the NS invoice template | |
 
 ## 4. deploy
 
