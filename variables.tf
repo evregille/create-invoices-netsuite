@@ -56,3 +56,5 @@ variable "ns_consumer_key" {}
 variable "ns_consumer_secret" {}
 variable "ns_token_id" {}
 variable "ns_token_secret" {}
+variable "ns_invoice_custom_form_id" {}
+variable "ns_invoice_custom_form_ref_name" {}

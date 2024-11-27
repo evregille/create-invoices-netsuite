@@ -3,13 +3,18 @@ import crypto from 'crypto';
 import OAuth from 'oauth-1.0a';
 
 const METRONOME_API_KEY = process.env['METRONOME_API_KEY'] || '';
+
 const NS_ACCOUNT_ID = process.env['NS_ACCOUNT_ID'] || '';
 const NS_CONSUMER_KEY = process.env['NS_CONSUMER_KEY'] || '';
 const NS_CONSUMER_SECRET = process.env['NS_CONSUMER_SECRET'] || '';
 const NS_TOKEN_ID = process.env['NS_TOKEN_ID'] || '';
 const NS_TOKEN_SECRET = process.env['NS_TOKEN_SECRET'] || '';
-const ALGORITHM = 'HMAC-SHA256';
+const NS_INVOICE_CUSTOM_FORM = (process.env['NS_INVOICE_CUSTOM_FORM_ID'] && process.env['NS_INVOICE_CUSTOM_FORM_REF_NAME']) ? {
+    id: process.env['NS_INVOICE_CUSTOM_FORM_ID'],
+    refName: process.env['NS_INVOICE_CUSTOM_FORM_REF_NAME'],
+} : undefined;
 
+const ALGORITHM = 'HMAC-SHA256';
 const METRONOME_STATUS = ["DRAFT",
     "FINALIZED",
     "PAID",
@@ -37,26 +42,28 @@ type LineItem = {
 }
 
 type NetsuiteInvoice = {
-    entity: {id: string},
+    entity: {
+        id: string
+    },
     item: Array<any>,
     externalId: string,
     startDate: string,
     endDate: string,
-    customForm: any,
+    customForm: {
+        id: string,
+        refName: string,
+    },
 }
 
 type AuthParameters = any
 
 // Netsuite Parameters
 const NS_REST_URL = `https://${NS_ACCOUNT_ID.toLowerCase().replace(/_/g, '-')}.suitetalk.api.netsuite.com/services/rest/`;
-const NS_CUSTOM_FORM = {
-    "id": "178",
-    "refName": "Z -HM Invoice Form"
-}
+
 const path = 'record/v1/invoice';
 const method = 'POST';
 const url = `${NS_REST_URL}${path}`;
-const BILLING_PROVIDER_NAME='netsuite'
+const BILLING_PROVIDER_NAME = 'netsuite'
 
 export const handler = async function(message: any){
     try{
@@ -101,7 +108,7 @@ const formatMetronomeInvoiceToNetsuite = function (invoice: Invoice): any {
         "externalId":invoice.id,
         "startDate": invoice.start_date,
         "endDate": invoice.end_date,
-        "customForm": NS_CUSTOM_FORM
+        "customForm": NS_INVOICE_CUSTOM_FORM
     }
 }
 

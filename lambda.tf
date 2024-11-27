@@ -139,7 +139,9 @@ resource "aws_lambda_function" "create_invoice" {
         NS_CONSUMER_SECRET = var.ns_consumer_secret 
         NS_TOKEN_ID = var.ns_token_id 
         NS_TOKEN_SECRET = var.ns_token_secret 
-        METRONOME_API_KEY=var.metronome_api_key
+        NS_INVOICE_CUSTOM_FORM_ID = var.ns_invoice_custom_form_id
+        NS_INVOICE_CUSTOM_FORM_REF_NAME = var.ns_invoice_custom_form_ref_name
+        METRONOME_API_KEY = var.metronome_api_key
     }
   }
 }

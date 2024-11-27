@@ -49,9 +49,8 @@ export const handler = async function (message: any) {
             const fetchInvoiceResponse: Response = await fetchMetronomeInvoice(
                 event.properties.customer_id, 
                 event.properties.invoice_id);
-            if(!fetchInvoiceResponse || fetchInvoiceResponse && fetchInvoiceResponse.error){
+            if(!fetchInvoiceResponse || fetchInvoiceResponse && fetchInvoiceResponse.error)
                 await logError(fetchInvoiceResponse);
-            }
             else{
                 console.log(`Metronome invoice ${event.properties.invoice_id} for customer ${event.properties.customer_id} fetched successfuly`)
                 if(validateInvoice(fetchInvoiceResponse.data)){
@@ -60,9 +59,8 @@ export const handler = async function (message: any) {
                     const sendMessageResponse: Response = await sendMessageToQueue(
                         formattedInvoice, 
                         SQS_INVOICES_QUEUE_URL);
-                    if(sendMessageResponse.error) {
+                    if(sendMessageResponse.error) 
                         await logError(sendMessageResponse);
-                    }
                     console.log(`Invoice sent to queue to be processed by billing provider.`);
                 }
                 else console.log('Invalid Invoice')
