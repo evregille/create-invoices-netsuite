@@ -35,6 +35,13 @@ variable "metronome_billing_provider_customer_id" {
     type = string
     description = "Metronome custom field key name sets on customer object for the billing provider customer ID"
 }
+
+variable "metronome_billing_provider_destination" {
+  default="billing_provider_destination"
+  type=string
+  description = "Metronome custom field key name sets on customer object for the billing provider destination"
+}
+
 variable "metronome_billing_provider_item_id" {
   default = "billing_provider_item_id"
   type = string
@@ -67,3 +74,5 @@ variable "ns_consumer_key" {}
 variable "ns_consumer_secret" {}
 variable "ns_token_id" {}
 variable "ns_token_secret" {}
+variable "razorpay_apikey_id" {}
+variable "razorpay_apikey_secret" {}

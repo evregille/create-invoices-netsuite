@@ -7,6 +7,7 @@ const SQS_INVOICES_QUEUE_URL = process.env['SQS_INVOICES_QUEUE_URL'] || '';
 const metronomeClient = new Metronome({ bearerToken: process.env['METRONOME_API_KEY'] });
 
 const INVOICES_TYPES : string[] = (process.env['METRONOME_INVOICES_TYPES'] || "").split(',').map(el => el.trim()) ;
+const CUSTOMER_INVOICE_DESTINAION = process.env['CUSTOMER_INVOICE_DESTINATION'] || '';
 const CUSTOMER_EXTERNAL_FIELD_NAME =process.env['CUSTOMER_EXTERNAL_FIELD_NAME'] || '';
 const PRODUCT_EXTERNAL_FIELD_NAME = process.env['PRODUCT_EXTERNAL_FIELD_NAME'] || '';
 const SEPARATOR_LINE_ITEM_KEYS = process.env['SEPARATOR_LINE_ITEM_KEYS'] || '';
@@ -27,6 +28,7 @@ type Response = {
 
 type Invoice = {
     id: string,
+    destination: string,
     metronome_customer_id: string,
     external_customer_id: string,
     start_date: string,
@@ -56,6 +58,7 @@ export const handler = async function (message: any) {
                 if(validateInvoice(fetchInvoiceResponse.data)){
                     console.log(`Metronome invoice valid for being created to billing provider`);
                     const formattedInvoice = formatInvoice(fetchInvoiceResponse.data);
+                    console.log(`Metronome invoice being queued to be created with ${formattedInvoice.destination}`)
                     const sendMessageResponse: Response = await sendMessageToQueue(
                         formattedInvoice, 
                         SQS_INVOICES_QUEUE_URL);
@@ -147,6 +150,7 @@ const formatInvoice = function(invoice: any): Invoice {
     }
     return {
         id: invoice.id,
+        destination: invoice.customer_custom_fields[CUSTOMER_INVOICE_DESTINAION],
         metronome_customer_id: invoice.customer_id,
         external_customer_id:invoice.customer_custom_fields[CUSTOMER_EXTERNAL_FIELD_NAME],
         start_date: invoice.start_timestamp,

@@ -89,6 +89,7 @@ resource "aws_lambda_function" "format_invoice" {
       CUSTOMER_EXTERNAL_FIELD_NAME = var.metronome_billing_provider_customer_id
       PRODUCT_EXTERNAL_FIELD_NAME = var.metronome_billing_provider_item_id
       SEPARATOR_LINE_ITEM_KEYS = var.line_item_name_separator
+      CUSTOMER_INVOICE_DESTINATION = var.metronome_billing_provider_destination
     }
   }
 }
@@ -100,7 +101,7 @@ resource "aws_cloudwatch_log_group" "format_invoice" {
 }
 
 
-## LAMBDA create NS Invoice ----------
+## LAMBDA create Invoice ----------
 # transpiler typescript 
 resource "terraform_data" "transpile_create_invoice" {
   triggers_replace = [local.lambda_create_invoice__md5]
@@ -142,6 +143,8 @@ resource "aws_lambda_function" "create_invoice" {
         NS_INVOICE_CUSTOM_FORM_ID = var.ns_invoice_custom_form_id
         NS_INVOICE_CUSTOM_FORM_REF_NAME = var.ns_invoice_custom_form_ref_name
         METRONOME_API_KEY = var.metronome_api_key
+        RAZORPAY_API_KEY_ID = var.razorpay_apikey_id
+        RAZORPAY_API_KEY_SECRET = var.razorpay_apikey_secret
     }
   }
 }
